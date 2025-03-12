@@ -7,10 +7,16 @@ class Solution:
         #     else:
         #         result.append(False)
         # return result
+
+        # result = []
+        # for candy in candies:
+        #     if candy+extraCandies >= max(candies):
+        #         result.append(True)
+        #     else:
+        #         result.append(False)
+        # return result
+
         result = []
-        for candy in candies:
-            if candy+extraCandies >= max(candies):
-                result.append(True)
-            else:
-                result.append(False)
+        for i in range(len(candies)):
+            result.append(candies[i]+extraCandies>=max(candies))
         return result
