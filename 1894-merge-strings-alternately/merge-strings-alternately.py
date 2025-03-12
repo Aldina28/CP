@@ -9,9 +9,9 @@ class Solution:
                 result+=word2[i]
             i+=1
         return result
-        i=0
-        j=0
-        result = ""
+        # i=0
+        # j=0
+        # result = ""
 
         # while i<len(word1) and j<len(word2):
         #     result+=word1[i]
