@@ -13,3 +13,4 @@ class Solution:
 
         nums.sort()
         return nums[len(nums)//2]
+
