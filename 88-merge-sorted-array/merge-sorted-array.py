@@ -3,17 +3,16 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
-        midx = m - 1
-        nidx = n - 1 
-        right = m + n - 1
+        m_idx = m-1
+        n_idx = n-1
+        ptr = m+n-1
 
-        while nidx >= 0:
-            if midx >= 0 and nums1[midx] > nums2[nidx]:
-                nums1[right] = nums1[midx]
-                midx -= 1
+        while n_idx>=0:
+            if nums2[n_idx]<nums1[m_idx] and m_idx >= 0:
+                nums1[ptr] = nums1[m_idx]
+                ptr -= 1
+                m_idx -=1
             else:
-                nums1[right] = nums2[nidx]
-                nidx -= 1
-
-            right -= 1
-        
+                nums1[ptr] = nums2[n_idx]
+                ptr -= 1
+                n_idx -= 1
