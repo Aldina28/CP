@@ -5,7 +5,7 @@ class Solution:
         map1={}
 
         for i, val in enumerate(nums):
-            if val in map1 and abs(map1[val]-i)<=k:
+            if val in map1 and i-map1[val]<=k:
                 return True
             
             map1[val] = i
