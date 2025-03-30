@@ -9,8 +9,6 @@ class Solution:
             
         #     map1[val] = i
         # return False
-        if len(nums) == len(set(nums)):
-            return False
 
         hm = dict()
         for idx, num in enumerate(nums):
