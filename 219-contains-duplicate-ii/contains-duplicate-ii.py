@@ -11,14 +11,11 @@ class Solution:
         #     index += 1
         
         # return False
-        seen = {}
+        map1={}
 
         for i, val in enumerate(nums):
-            if val in seen and i - seen[val] <= k:
+            if val in map1 and abs(map1[val]-i)<=k:
                 return True
-            else:
-                seen[val] = i
-        
+            
+            map1[val] = i
         return False
-
-
