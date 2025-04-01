@@ -5,7 +5,7 @@ class Solution:
         for num in tokens:
             if num.isnumeric() or (num[0]=="-" and len(num)>1):
                 stack.append(int(num))
-            elif len(stack)>=2:
+            else:
                 operand1 = int(stack.pop())
                 operand2 = int(stack.pop())
                 if num == "+":
