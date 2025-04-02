@@ -6,8 +6,8 @@
 
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-        ptr_a = headA
-        ptr_b = headB
+        # ptr_a = headA
+        # ptr_b = headB
 
         # while ptr_a!=ptr_b:
         #     ptr_a = ptr_a.next if ptr_a else headB
