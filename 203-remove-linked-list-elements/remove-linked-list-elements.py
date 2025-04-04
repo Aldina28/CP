@@ -15,13 +15,11 @@ class Solution:
         #     else:
         #         current = current.next
         # return dummy.next 
-        ans = ListNode(0, head)
-        dummy = ans
-
-        while dummy:
-            while dummy.next and dummy.next.val == val:
-                dummy.next = dummy.next.next
-            dummy = dummy.next
-        
-        return ans.next
+        dummy = ListNode(0, head)
+        curr = dummy
+        while curr:
+            while curr.next and curr.next.val == val:
+                curr.next = curr.next.next
+            curr = curr.next
+        return dummy.next
         
