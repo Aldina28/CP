@@ -6,11 +6,12 @@
 class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
         
-        list1 = []
+        values = []
+
         while head:
-            list1.append(head.val)
+            values.append(head.val)
             head = head.next
-        
-        return list1 == list1[::-1]
+
+        return values == values[::-1]
 
         
