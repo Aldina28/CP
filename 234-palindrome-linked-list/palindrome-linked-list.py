@@ -12,5 +12,5 @@ class Solution:
             head = head.next
         
         return list1 == list1[::-1]
-
+        
         
