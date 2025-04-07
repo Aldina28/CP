@@ -10,10 +10,7 @@ class Solution:
         while current:
             count += 1
             current = current.next
-        if count%2 != 0:
-            count = count//2+1
-        else:
-            count = count//2+1
+        count = count//2+1
         pos = 0
         current = head
         while pos<count-1 and current:
