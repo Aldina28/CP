@@ -9,15 +9,4 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        hashMap={None:None}
-        current = head
-        while current:
-            hashMap[current] = Node(current.val)
-            current = current.next
-        current = head
-        while current:
-            copy = hashMap[current]
-            copy.next = hashMap[current.next]
-            copy.random = hashMap[current.random]
-            current = current.next
-        return hashMap[head]
+        return copy.deepcopy(head)
