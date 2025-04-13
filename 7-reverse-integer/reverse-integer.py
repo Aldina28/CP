@@ -1,12 +1,12 @@
 class Solution:
     def reverse(self, x: int) -> int:
-        if str(x)[0] == "-":
-            res_x = str(x)[len(str(x)):0:-1]
-            res_x = int("-" + res_x)     
+        s = str(x)
+        if(s[0] == "-"):
+            s = s[1:]
+            s = "-" + s[::-1]
         else:
-            res_x = str(x)[::-1]
-            res_x = int(res_x) 
-        if res_x in range(-2**31, 2**31):
-            return res_x
-        else:
+            s = s[::-1]
+        x = int(s)
+        if ((x > (2**31 - 1)) or (x < -2**31)):
             return 0
+        return x
