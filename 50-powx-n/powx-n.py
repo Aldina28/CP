@@ -1,16 +1,22 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
-        def powHelper(x, n):
+        def calc_power(x, n):
+            if x == 0:
+                return 0
             if n == 0:
                 return 1
-            half = powHelper(x, n // 2)
-            result = half * half
+            
+            res = calc_power(x, n // 2)
+            res = res * res
+
             if n % 2 == 1:
-                result *= x
-            return result
+                return res * x
+            
+            return res
+
+        ans = calc_power(x, abs(n))
+
+        if n >= 0:
+            return ans
         
-        N = n
-        if N < 0:
-            x = 1 / x
-            N = -N
-        return powHelper(x, N)
+        return 1 / ans 
