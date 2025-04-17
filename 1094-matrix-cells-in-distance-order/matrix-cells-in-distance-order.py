@@ -1,8 +1,8 @@
 class Solution:
     def allCellsDistOrder(self, rows: int, cols: int, rCenter: int, cCenter: int) -> List[List[int]]:
-        res = []
-        for r in range(rows):
-            for c in range(cols):
-                res.append([r,c])
-        res.sort(key=lambda x: abs(x[0] - rCenter) + abs(x[1] - cCenter))
-        return res
+        def distance(pos):
+            i, j = pos
+            return abs(i - rCenter) + abs(j - cCenter)
+
+        res = [(i, j) for i in range(rows) for j in range(cols)]
+        return sorted(res, key=distance)
