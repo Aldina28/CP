@@ -3,14 +3,14 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        ptr = len(nums)-1
-        while ptr>0 and nums[ptr-1]>=nums[ptr]:
-            ptr -= 1
-        if ptr==0:
+        pivot = len(nums)-1
+        while pivot>0 and nums[pivot-1]>=nums[pivot]:
+            pivot-=1
+        if pivot==0:
             nums.reverse()
-            return 
-        j = len(nums)-1
-        while j>=ptr and nums[j]<=nums[ptr-1]:
-            j-=1
-        nums[ptr-1], nums[j] = nums[j], nums[ptr-1]
-        nums[ptr:]=reversed(nums[ptr:])
+            return
+        i=len(nums)-1
+        while i>=pivot and nums[i]<=nums[pivot-1]:
+            i-=1
+        nums[i], nums[pivot-1] = nums[pivot-1], nums[i]
+        nums[pivot:] = reversed(nums[pivot:])
