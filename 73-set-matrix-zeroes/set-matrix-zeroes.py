@@ -3,20 +3,18 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        
-        m = len(matrix)
-        n = len(matrix[0])
-        rows = set()
-        columns = set()
-        zereos = []
-        for i in range(m):
-            for j in range(n):
+        rows = len(matrix)
+        cols = len(matrix[0])
+        zero_rows = set()
+        zero_cols = set()
+        for i in range(rows):
+            for j in range(cols):
                 if matrix[i][j] == 0:
-                    rows.add(i)
-                    columns.add(j)
-        for i in rows:
-            matrix[i] = [0 for _ in range(n)]
-        for j in columns:
-            for i in range(m):
+                    zero_rows.add(i)
+                    zero_cols.add(j)
+        for i in zero_rows:
+            matrix[i] = [0 for _ in range(cols)]
+        for j in (zero_cols):
+            for i in range(rows):
                 matrix[i][j] = 0
         return matrix
