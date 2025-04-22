@@ -6,7 +6,7 @@ class Solution:
         row_num = len(board)
         col_num = len(board[0])
         zero_count = []
-        original = copy.deepcopy(board)
+        original = [row[:] for row in board]
         for r in range(row_num):
             for c in range(col_num):
                 if r - 1 >= 0:
