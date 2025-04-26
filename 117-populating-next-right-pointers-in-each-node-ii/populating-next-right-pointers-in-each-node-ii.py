@@ -13,18 +13,15 @@ class Solution:
         if not root:
             return 
         queue = []
-        queue.append(root)
-        dummy = Node(-999)
+        queue.append((root, 0))
         while queue:
-            prev = dummy
-            for _ in range(len(queue)):
-                node = queue.pop(0)
-                if node.left:
-                    queue.append(node.left)
-                    prev.next = node.left
-                    prev = prev.next
-                if node.right:
-                    queue.append(node.right)
-                    prev.next = node.right
-                    prev = prev.next
-        return root
+            node, depth = queue.pop(0)
+            if queue:
+                next_node, next_depth = queue[0]
+                if next_depth == depth:
+                    node.next = next_node
+            if node.left:
+                queue.append((node.left, depth+1))
+            if node.right:
+                queue.append((node.right, depth+1))   
+        return root 
