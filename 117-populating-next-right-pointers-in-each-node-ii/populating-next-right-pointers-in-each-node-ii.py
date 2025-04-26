@@ -12,10 +12,10 @@ class Solution:
     def connect(self, root: 'Node') -> 'Node':
         if not root:
             return 
-        queue = []
+        queue = deque()
         queue.append((root, 0))
         while queue:
-            node, depth = queue.pop(0)
+            node, depth = queue.popleft()
             if queue:
                 next_node, next_depth = queue[0]
                 if next_depth == depth:
