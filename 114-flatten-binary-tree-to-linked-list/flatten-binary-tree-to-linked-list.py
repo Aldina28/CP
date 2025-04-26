@@ -10,21 +10,18 @@ class Solution:
         Do not return anything, modify root in-place instead.
         """
         if not root:
-            return []
-
+            return 
         stack = []
         stack.append(root)
-        cur = root
-        while stack:            # order to put nodes to stack: right, left
+        curr = root
+        while stack:
             node = stack.pop()
-            if node != root:
-                cur.right = node
-                cur.left = None
-            cur = node
-
+            if curr!=node:
+                curr.right = node
+                curr.left = None
+            curr = node
             if node.right:
                 stack.append(node.right)
             if node.left:
                 stack.append(node.left)
-
         return root
