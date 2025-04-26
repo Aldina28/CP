@@ -11,12 +11,12 @@ class Solution:
                 return
             temp = temp*10+root.val
             if not root.left and not root.right:
-                result[0] += temp
+                self.result += temp
                 return 
             sums(root.left, result, temp)
             sums(root.right, result, temp)
-        result = [0]
+        self.result = 0 
         temp = 0
-        sums(root, result, temp)
-        return result[0]
+        sums(root, self.result, temp)
+        return self.result
         
