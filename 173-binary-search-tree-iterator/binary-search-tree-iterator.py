@@ -4,8 +4,6 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-__import__("atexit").register(lambda: open("display_runtime.txt", "w").write("0"))
-
 class BSTIterator:
 
     def __init__(self, root: Optional[TreeNode]):
