@@ -1,21 +1,20 @@
 class Solution:
     def minTimeToReach(self, moveTime: List[List[int]]) -> int:
-        n, m = len(moveTime), len(moveTime[0])
-
-        if n == 1 and m == 1:
-            return 0
-
-        visited = set()
-        visited.add((0, 0))
-
-        h = [(0, 0, 0)]
-        while h:
-            t, x, y = heappop(h)
+        n = len(moveTime)
+        m = len(moveTime[0])
+        directions = [[0, 1], [1, 0], [-1, 0], [0, -1]]
+        heap = [(0, 0, 0)]
+        seen = set()
+        while heap:
+            time, x, y = heappop(heap)
             if (x, y) == (n - 1, m - 1):
-                return t
-            for dx, dy in [(-1, 0), (0, -1), (0, 1), (1, 0)]:
-                u, v = x + dx, y + dy
-                if 0 <= u < n and 0 <= v < m and (u, v) not in visited:
-                    heappush(h, (max(t, moveTime[u][v]) + 1, u, v))
-                    visited.add((u, v))
+                return time
+            for dir_x, dir_y in directions:
+                new_x = dir_x + x
+                new_y = dir_y + y
+                if 0 <= new_x < n and 0 <= new_y < m and (new_x, new_y) not in seen:
+                    seen.add((new_x, new_y))
+                    t = max(moveTime[new_x][new_y], time) + 1
+                    heappush(heap, (t, new_x, new_y))
+        
         return -1
