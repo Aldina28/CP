@@ -1,20 +1,16 @@
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        graph = collections.defaultdict(list)
+        if [source, destination] in edges or [destination, source] in edges:
+            return True
+        roots = list(range(n))
+
+        def find(u):
+            if u == roots[u]:
+                return u
+            roots[u] = find(roots[u])
+            return roots[u]
+        
         for u, v in edges:
-            graph[u].append(v)
-            graph[v].append(u)
-        
-        def dfs(node, visited):
-            if node == destination:
-                return True
-            visited.add(node)
-            for neighbor in graph[node]:
-                if neighbor not in visited:
-                    if dfs(neighbor, visited):
-                        return True
-            return False
-        
-        visited = set()
-        return dfs(source, visited)
+            roots[find(u)] = find(v)
+        return find(source) == find(destination)
         
