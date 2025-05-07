@@ -1,11 +1,17 @@
 class Solution:
     def findJudge(self, n: int, trust: List[List[int]]) -> int:
-        in_degree = [0] * (n + 1)
-        out_degree = [0] * (n + 1)
-        for a in trust:
-            out_degree[a[0]] += 1
-            in_degree[a[1]] += 1
-        for i in range(1, n + 1):
-            if in_degree[i] == n - 1 and out_degree[i] == 0:
-                return i
+        if n == 1:
+            return 1
+        people = [0] * n
+        pos = []
+        for (l,r) in trust:
+            if people[r-1] >= 0:
+                people[r-1] += 1
+                if people[r-1] == n-1:
+                    pos.append(r-1)
+            people[l-1] = -1 
+        
+        for p in pos:
+            if people[p] == n-1:
+                return p +1
         return -1
