@@ -22,7 +22,6 @@ class Solution:
                 movecost = 2
                 if prev==2:
                     movecost = 1
-
                 
                 new_time = max(moveTime[xx][yy], dist[r][c]) + movecost
 
