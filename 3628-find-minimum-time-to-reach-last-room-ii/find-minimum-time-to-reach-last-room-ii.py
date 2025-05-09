@@ -23,7 +23,7 @@ class Solution:
                 if prev==2:
                     movecost = 1
                 
-                new_time = max(moveTime[xx][yy], dist[r][c]) + movecost
+                new_time = max(moveTime[xx][yy], time) + movecost
 
                 if new_time < dist[xx][yy]:
                     if (xx==rows-1 and yy==cols-1):
