@@ -13,20 +13,15 @@ class Solution:
 
         while h:
             time, r, c, prev = heappop(h)
+            if (r==rows-1 and c==cols-1):
+                        return time
             for dx, dy in moves:
                 xx, yy = r+dx, c+dy
-
-                if (xx<0 or xx>=rows or yy<0 or yy>=cols):
-                    continue
-                
-                movecost = 2
-                if prev==2:
-                    movecost = 1
-                
-                new_time = max(moveTime[xx][yy], time) + movecost
-
-                if new_time < dist[xx][yy]:
-                    if (xx==rows-1 and yy==cols-1):
-                        return new_time
-                    dist[xx][yy] = new_time
-                    heappush(h,(new_time, xx, yy, movecost))
+                if 0<=xx<rows and 0<=yy<cols:
+                    movecost = 1 if prev == 2 else 2
+                    depart = max(moveTime[xx][yy], time)
+                    arrival = depart+movecost
+                    if arrival < dist[xx][yy]:
+                        dist[xx][yy] = arrival
+                        heappush(h,(arrival, xx, yy, movecost))
+        return -1
