@@ -3,26 +3,21 @@ class Solution:
     def minTimeToReach(self, moveTime: List[List[int]]) -> int:
         rows = len(moveTime)
         cols = len(moveTime[0])
-
         dist = [[float('inf')]*cols for _ in range(rows)]
-
         dist[0][0] = 0
-
-        h = [(0,0,0)]
-
-        moves = [(0,1),(1,0),(-1,0),(0,-1)]
-
+        h = [(0, 0, 0)]
+        moves = [(1, 0), (-1, 0), (0, 1), (0, -1)]
         while h:
-            time, r, c = heappop(h)
-            if (r, c) == (rows - 1, cols - 1):
-                return time
-            for dx, dy in moves:  
-                xx, yy = r+dx, c+dy
-                if 0 <= xx < rows and 0 <= yy < cols:
-                    depart = max(time, moveTime[xx][yy])
+            t, r, c = heappop(h)
+            if (r, c) == (rows-1, cols-1):
+                return t
+            for dx,dy in moves:
+                x, y = r+dx, c+dy
+                if 0 <= x < rows and 0 <= y < cols:
+                    depart = max(t, moveTime[x][y])
                     arrival = depart+1
-                    if arrival < dist[xx][yy]:
-                        dist[xx][yy] = arrival
-                        heappush(h, (arrival, xx, yy))
+                    if arrival<dist[x][y]:
+                        dist[x][y] = arrival
+                        heappush(h, (arrival, x, y))
         return -1
-
+                
