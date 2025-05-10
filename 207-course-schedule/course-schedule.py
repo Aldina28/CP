@@ -1,30 +1,31 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        pre = defaultdict(list)
+        courses = prerequisites
+        g = defaultdict(list)
 
-        for course, p in prerequisites:
-            pre[course].append(p)
+        for a, b in courses:
+            g[a].append(b)
         
-        taken = set()
+        unvisited = 0
+        visiting = 1
+        visited = 2
+        states = [unvisited] * numCourses
 
-        def dfs(course):
-            if not pre[course]:
-                return True
-            
-            if course in taken:
-                return False
-            
-            taken.add(course)
+        def dfs(node):
+            # state = states[node]
+            if states[node] == visited: return True
+            elif states[node] == visiting: return False
 
-            for p in pre[course]:
-                if not dfs(p): return False
+            states[node] = visiting
+
+            for nei in g[node]:
+                if dfs(nei) == False:
+                    return False
             
-            pre[course] = []
-            return True
+            states[node] = visited
         
-        for course in range(numCourses):
-            if not dfs(course):
+        for i in range(numCourses):
+            if dfs(i) == False:
                 return False
-
         return True
         
