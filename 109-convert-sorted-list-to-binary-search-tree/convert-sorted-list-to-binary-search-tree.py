@@ -15,17 +15,16 @@ class Solution:
             return None
         if not head.next:
             return TreeNode(head.val)
+        prev = None
         slow = head
         fast = head
-        prev = None
         while fast and fast.next:
             prev = slow
             slow = slow.next
             fast = fast.next.next
-        
         root = TreeNode(slow.val)
-        if prev:
-            prev.next = None
+        prev.next = None
         root.left = self.sortedListToBST(head)
         root.right = self.sortedListToBST(slow.next)
         return root
+        
