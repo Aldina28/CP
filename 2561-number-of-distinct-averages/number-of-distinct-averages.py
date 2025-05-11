@@ -1,10 +1,14 @@
 class Solution:
     def distinctAverages(self, nums: List[int]) -> int:
         nums.sort()
-        result_set = set()
-        while nums:
-            max_elt = nums.pop()
-            min_elt = nums.pop(0)
-            avg = (max_elt+min_elt)/2
-            result_set.add(avg)
-        return len(result_set)            
+        l, h = 0, len(nums)-1
+        result = []
+        while l<h:
+            min_elt = nums[l]
+            max_elt = nums[h]
+            avg = (min_elt+max_elt)/2
+            if avg not in result:
+                result.append(avg) 
+            l+=1
+            h-=1
+        return len(result)          
