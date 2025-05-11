@@ -12,7 +12,7 @@ class Solution:
         while head and head.next:
             first = head
             second = head.next
-            third = second.next
+            third = head.next.next
 
             prev.next = second
             second.next = first
