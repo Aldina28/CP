@@ -11,7 +11,7 @@ __import__("atexit").register(lambda: open("display_runtime.txt", "w").write("0"
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
         if not root:
-            return 
+            return
         queue = deque()
         queue.append((root, 0))
         while queue:
@@ -21,7 +21,7 @@ class Solution:
                 if next_depth == depth:
                     node.next = next_node
             if node.left:
-                queue.append((node.left, depth+1))
+                queue.append((node.left , depth+1))
             if node.right:
-                queue.append((node.right, depth+1))   
-        return root 
+                queue.append((node.right, depth+1))
+        return root
