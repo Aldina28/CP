@@ -1,15 +1,18 @@
 class Solution:
     def findEvenNumbers(self, digits: List[int]) -> List[int]:
-        freq=Counter(digits)
-        ans=[]
-        for x in range(100, 1000, 2):
-            x0, x1, x2=x%10, (x//10)%10, x//100
-            freq[x0]-=1
-            freq[x1]-=1
-            freq[x2]-=1
-            if freq[x0]>=0 and freq[x1]>=0 and freq[x2]>=0:
-                ans.append(x)
-            freq[x0]+=1
-            freq[x1]+=1
-            freq[x2]+=1
-        return ans
+        freq = Counter(digits)
+        result = []
+        for i in range(100, 1000, 2):
+            d1 = i//100
+            d2 = (i//10)%10
+            d3 = i%10
+            freq[d1]-=1
+            freq[d2]-=1
+            freq[d3]-=1
+            if freq[d1]>=0 and freq[d2]>=0 and freq[d3]>=0:
+                result.append(i)
+            freq[d1]+=1
+            freq[d2]+=1
+            freq[d3]+=1
+        return result
+
