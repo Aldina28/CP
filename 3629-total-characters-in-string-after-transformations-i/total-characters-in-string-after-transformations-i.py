@@ -1,16 +1,11 @@
 class Solution:
     def lengthAfterTransformations(self, s: str, t: int) -> int:
-        MOD = 10**9 + 7
-        cnt = [0] * 26
-        res = len(s)
-        z = 25
+        dp = [1] * (100_000 + 26)
+        for i in range(26, len(dp)):
+            dp[i] = (dp[i-26] + dp[i-25]) % 1_000_000_007
         
-        for c in s:
-            cnt[ord(c) - ord('a')] += 1
-        
-        for _ in range(t):
-            res = (res + cnt[z]) % MOD
-            cnt[(z + 1) % 26] = (cnt[(z + 1) % 26] + cnt[z]) % MOD
-            z = (z + 25) % 26
-        
-        return res
+        ans = 0
+        cnt = Counter(s)
+        for k, v in cnt.items():
+            ans = (ans + v * dp[(ord(k) - 97) + t]) % 1_000_000_007
+        return ans
