@@ -1,7 +1,7 @@
 class Solution:
     def isZeroArray(self, nums: List[int], queries: List[List[int]]) -> bool:
         n = len(nums)
-        diff = [0]*(n+1)
+        diff = [0]*(n)
         for l, r in queries:
             diff[l]-=1
             if r+1<n:
