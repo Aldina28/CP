@@ -3,7 +3,7 @@
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
-__import__("atexit").register(lambda: open("display_runtime.txt", "w").write("0"))
+
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
         if not head:
@@ -12,6 +12,6 @@ class Solution:
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-            if slow == fast:
+            if slow==fast:
                 return True
         return False
