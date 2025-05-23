@@ -1,25 +1,13 @@
 class Solution:
     def maximumValueSum(self, nums: List[int], k: int, edges: List[List[int]]) -> int:
-        # Step 1: Calculate base sum
-        base_sum = sum(nums)
+        deltas = [(num ^ k) - num for num in nums]
+        positives = [d for d in deltas if d >= 0]
+        if len(positives) % 2 == 0:
+            return sum(nums) + sum(positives)
 
-        # Step 2: Calculate gains for XORing each number
-        gains = [(num ^ k) - num for num in nums]
+        maxNegative = max((d for d in deltas if d < 0), default=float("-inf"))
+        minPositive = min(positives)
 
-        # Step 3: Sort gains descending
-        gains.sort(reverse=True)
-
-        # Step 4: Choose best even-number gain sum
-        max_gain = 0
-        current_gain = 0
-        count = 0
-
-        for gain in gains:
-            current_gain += gain
-            count += 1
-            # Step 5: Only consider even count of XORs
-            if count % 2 == 0:
-                max_gain = max(max_gain, current_gain)
-
-        # Step 6: Return final result
-        return base_sum + max_gain
+        return sum(nums) + max(
+            sum(positives) + maxNegative, sum(positives) - minPositive
+        )
