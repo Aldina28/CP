@@ -6,9 +6,9 @@
 #         self.right = right
 class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
-        level = 0
         if not root:
-            return level
+            return 0
+        level=0
         queue = [root]
         while queue:
             level+=1
@@ -20,4 +20,3 @@ class Solution:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
-
