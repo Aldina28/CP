@@ -1,6 +1,5 @@
 class Solution:
     def longestPalindrome(self, words: List[str]) -> int:
-        from collections import Counter
         cnt=Counter(words)
         res=0
         center=False
