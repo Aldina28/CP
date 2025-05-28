@@ -16,7 +16,7 @@ class Solution:
         curr = root
         while stack:
             node = stack.pop()
-            if curr!=node:
+            if node!=root:
                 curr.right = node
                 curr.left = None
             curr = node
@@ -25,3 +25,4 @@ class Solution:
             if node.left:
                 stack.append(node.left)
         return root
+        
