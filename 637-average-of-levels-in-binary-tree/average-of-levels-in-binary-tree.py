@@ -12,7 +12,7 @@ class Solution:
         while queue:
             temp = 0
             length = len(queue)
-            for _ in range(len(queue)):
+            for i in range(length):
                 node = queue.popleft()
                 temp+=node.val
                 if node.left:
