@@ -6,16 +6,16 @@
 #         self.right = right
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
-        self.idx = len(postorder)-1
-        hashMap = {n:i for i, n in enumerate(inorder)}
-        def dfs(l, r):
+        self.index = len(postorder)-1
+        index_map = {val:i for (i, val) in enumerate(inorder)}
+        def build(l, r):
             if l>r:
                 return None
-            hashMap_idx = hashMap[postorder[self.idx]]
-            root = TreeNode(postorder[self.idx])
-            self.idx-=1
-            root.right = dfs(hashMap_idx+1, r)
-            root.left = dfs(l, hashMap_idx-1)
+            root_val = postorder[self.index]
+            root = TreeNode(root_val)
+            root_idx = index_map[root_val]
+            self.index-=1
+            root.right = build(root_idx+1, r)
+            root.left = build(l, root_idx-1)
             return root
-        return dfs(0, len(inorder)-1)
-            
+        return build(0, len(postorder)-1)
