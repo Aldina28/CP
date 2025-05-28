@@ -6,17 +6,11 @@
 #         self.right = right
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
-        def sums(root, result, temp):
+        def dfs(root, path_sum):
             if not root:
-                return
-            temp = temp*10+root.val
+                return 0
+            path_sum = path_sum*10 + root.val
             if not root.left and not root.right:
-                self.result += temp
-                return 
-            sums(root.left, result, temp)
-            sums(root.right, result, temp)
-        self.result = 0 
-        temp = 0
-        sums(root, self.result, temp)
-        return self.result
-        
+                return path_sum
+            return dfs(root.left, path_sum) + dfs(root.right, path_sum)
+        return dfs(root, 0)   
