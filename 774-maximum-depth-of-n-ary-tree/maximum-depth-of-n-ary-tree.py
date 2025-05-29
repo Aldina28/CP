@@ -10,14 +10,4 @@ class Solution:
     def maxDepth(self, root: 'Node') -> int:
         if not root:
             return 0
-        queue = deque([root])
-        depth = 0
-        while queue:
-            length = len(queue)
-            for _ in range(length):
-                node = queue.popleft()
-                if node.children:
-                    for child in node.children:
-                        queue.append(child)
-            depth+=1
-        return depth
+        return 1+max([0]+[self.maxDepth(child) for child in root.children])
