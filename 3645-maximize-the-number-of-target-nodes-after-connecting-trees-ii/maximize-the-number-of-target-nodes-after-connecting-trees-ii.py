@@ -1,40 +1,27 @@
-from typing import List
-
 class Solution:
-    def dfs(self, node: int, color: int, graph: List[List[int]],
-            component: List[int], bipartite: List[int]) -> None:
-        bipartite[color] += 1
-        component[node] = color
-        for neighbor in graph[node]:
-            if component[neighbor] == -1:
-                self.dfs(neighbor, 1 - color, graph, component, bipartite)
-
-    def build_graph(self, edges: List[List[int]], n: int) -> List[List[int]]:
-        graph = [[] for _ in range(n)]
-        for u, v in edges:
-            graph[u].append(v)
-            graph[v].append(u)
-        return graph
-
     def maxTargetNodes(self, edges1: List[List[int]], edges2: List[List[int]]) -> List[int]:
-        n1, n2 = len(edges1) + 1, len(edges2) + 1
 
+        def find_even(edges, n):
+            graph = [[] for _ in range(n)]
+            queue = deque([(0, -1, True)])
+            evens = [False]*n
+            for u, v in edges:
+                graph[u].append(v)
+                graph[v].append(u)
+            while queue:
+                node, parent, is_even = queue.popleft()
+                evens[node] = is_even
 
-        graph1 = self.build_graph(edges1, n1)
-        graph2 = self.build_graph(edges2, n2)
-
- 
-        component1 = [-1] * n1
-        bipartite1 = [0, 0]
-        self.dfs(0, 0, graph1, component1, bipartite1)
-
-
-        ans = [bipartite1[component1[i]] for i in range(n1)]
-
-
-        component2 = [-1] * n2
-        bipartite2 = [0, 0]
-        self.dfs(0, 0, graph2, component2, bipartite2)
-
-        max_bipartite2 = max(bipartite2)
-        return [val + max_bipartite2 for val in ans]
+                for child in graph[node]:
+                    if child == parent:
+                        continue
+                    queue.append((child, node, not is_even))  
+            return evens
+        n1 = len(edges1)+1
+        n2 = len(edges2)+1
+        evens1, evens2 = find_even(edges1, n1), find_even(edges2, n2)
+        sm1, sm2 = sum(evens1), sum(evens2)      
+        mx = max(sm2, n2-sm2)
+        ans = [mx+(sm1 if even else n1-sm1) for even in evens1]
+        return ans
+        
