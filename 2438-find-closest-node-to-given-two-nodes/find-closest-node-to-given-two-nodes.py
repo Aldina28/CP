@@ -1,25 +1,34 @@
 class Solution:
     def closestMeetingNode(self, edges: List[int], node1: int, node2: int) -> int:
-        dist1 = self.getDistances(edges, node1)
-        dist2 = self.getDistances(edges, node2)
+        visited1 = set()
+        visited2 = set()
+        while node1 != -1 or node2 != -1:
+            if node1 in visited1:
+                node1 = -1
+            
+            if node2 in visited2:
+                node2 = -1
 
-        result = -1
-        minDistance = float('inf')
+            if node1 != -1:
+                visited1.add(node1)
+            
+            if node2 != -1:
+                visited2.add(node2)
 
-        for i in range(len(edges)):
-            if dist1[i] != -1 and dist2[i] != -1:
-                maxDist = max(dist1[i], dist2[i])
-                if maxDist < minDistance:
-                    minDistance = maxDist
-                    result = i
-        return result
+            if node1 in visited2 and node2 in visited1:
+                return min(node1, node2)
+            
+            if node1 in visited2:
+                return node1
+            
+            if node2 in visited1:
+                return node2
+            
+            if node1 != -1:
+                node1 = edges[node1]
 
-    def getDistances(self, edges, start):
-        n = len(edges)
-        dist = [-1] * n
-        d = 0
-        while start != -1 and dist[start] == -1:
-            dist[start] = d
-            d += 1
-            start = edges[start]
-        return dist
+            if node2 != -1:
+                node2 = edges[node2]       
+                 
+        return -1
+        
