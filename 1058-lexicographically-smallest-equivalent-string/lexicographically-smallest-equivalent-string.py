@@ -1,11 +1,11 @@
 class Solution:
     def smallestEquivalentString(self, s1: str, s2: str, baseStr: str) -> str:
-        root = list(range(26))
         def find(char):
             i = ord(char) - ord('a')
             while root[i]!=i:
                 i = root[i]
             return i
+        root = list(range(26))
         for char1, char2 in zip(s1, s2):
             r1 = find(char1)
             r2 = find(char2)
