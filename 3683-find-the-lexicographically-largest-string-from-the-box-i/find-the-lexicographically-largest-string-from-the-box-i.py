@@ -3,12 +3,11 @@ class Solution:
         if numFriends == 1:
             return word
         
-        n = len(word)
-        length = n-numFriends+1
-        max_char = max(word)
-        result = ""
-        for i in range(n):
-            if word[i] == max_char:
-                substr = word[i:i+length]
-                result = max(result, substr)
-        return result
+        window = len(word)-numFriends+1
+        res = -1
+        max_word = ""
+        for i in range(len(word)):
+            if word[i:i+window]>max_word:
+                max_word = word[i:i+window]
+                res = i
+        return word[res:res+window]
