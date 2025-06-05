@@ -1,5 +1,5 @@
 class Solution:
     def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
-        right_array_set = set(range(1,len(nums)+1))
-        res = list(right_array_set - set(nums))
-        return res
+        for i in nums:
+            nums[abs(i)-1] = -abs(nums[abs(i)-1])
+        return [i+1 for i in range(len(nums)) if nums[i]>0]
