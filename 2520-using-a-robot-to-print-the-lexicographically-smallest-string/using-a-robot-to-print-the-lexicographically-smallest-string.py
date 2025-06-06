@@ -1,16 +1,21 @@
 class Solution:
     def robotWithString(self, s: str) -> str:
-        freq = Counter(s)
-        t = []
-        r = []
-        min_char = 'a'
+        min_char = min(s)
+        min_char_count = s.count(min_char)
 
-        for c in s:
-            t.append(c)
-            freq[c] -=1
+        res, t, last_idx = "", [], len(s)-1
 
-            while min_char<='z' and freq[min_char] == 0:
-                min_char = chr(ord(min_char) + 1)
-            while t and t[-1] <= min_char:
-                r.append(t.pop())
-        return ''.join(r)
+        for idx, char in enumerate(s):
+            if char == min_char:
+                res += char
+                min_char_count -=1
+                if min_char_count == 0:
+                    if idx>=last_idx:
+                        break
+                    min_char = min(s[idx+1:])
+                    min_char_count = s[idx+1:].count(min_char)
+                    while t and t[-1] <= min_char:
+                        res+=t.pop()
+            else:
+                t.append(char)
+        return res+"".join(t[::-1])
