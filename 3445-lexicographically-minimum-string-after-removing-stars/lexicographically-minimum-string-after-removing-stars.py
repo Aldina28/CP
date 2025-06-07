@@ -1,19 +1,18 @@
 class Solution:
     def clearStars(self, s: str) -> str:
-        n = len(s)
-        pq = []  # Min-heap to store characters
-        m = defaultdict(deque)  # Map character -> deque of indices
-        keep = [True] * n  # Marks whether to keep character at index
-
-        for i in range(n):
-            if s[i] == '*':
-                smallest = heapq.heappop(pq)  # Get smallest character
-                idx = m[smallest].pop()      # Remove last occurrence index
-                keep[i] = False              # Mark '*' for removal
-                keep[idx] = False            # Mark smallest char for removal
+        if "*" not in s:
+            return s
+        heap = []
+        deleted = set()
+        for i, char in enumerate(s):
+            if char == '*':
+                char, neg = heapq.heappop(heap)
+                deleted.add(-neg)
             else:
-                heapq.heappush(pq, s[i])
-                m[s[i]].append(i)
-
-        # Build result from characters not marked for removal
-        return ''.join(s[i] for i in range(n) if keep[i])
+                heapq.heappush(heap, (char, -i))
+        res = []
+        for i, c in enumerate(s):
+            if i in deleted or c=='*':
+                continue
+            res.append(c)
+        return ''.join(res)
