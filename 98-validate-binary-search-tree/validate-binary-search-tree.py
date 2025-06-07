@@ -15,4 +15,4 @@ class Solution:
                 return ll and rr
             else:
                 return False
-        return valid(root, float("-inf"), float("inf"))
+        return valid(root, -float('inf'), float('inf'))
