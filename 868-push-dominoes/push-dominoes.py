@@ -1,38 +1,31 @@
 class Solution:
     def pushDominoes(self, dominoes: str) -> str:
-        ans = ''
-        left = '.'
-        dots = 0
+        dominoes = list(dominoes)
+        n = len(dominoes)
+        last_right = -1
+        last_left = 0
 
-        for domino in dominoes:
-            if domino == '.':
-                dots += 1
-            else:
-                if dots == 0:
-                    ans += domino
-                    left = domino
+        for i, d in enumerate(dominoes):
+            if d == 'R':
+                if last_right != -1:
+                    for j in range(last_right + 1, i):
+                        dominoes[j] = 'R'
+                last_right = i
+            elif d == 'L':
+                if last_right != -1:
+                    l, r = last_right + 1, i - 1
+                    while l < r:
+                        dominoes[l], dominoes[r] = 'R', 'L'
+                        l += 1
+                        r -= 1
+                    last_right = -1
                 else:
-                    if left in ('.', 'L') and domino == 'L':
-                        ans += 'L' * (dots + 1)
-                    elif left == '.' and domino == 'R':
-                        ans += '.' * dots + 'R'
-                    elif left == 'R' and domino == 'R':
-                        ans += 'R' * (dots + 1)
-                    elif left == 'L' and domino == 'R':
-                        ans += '.' * dots + 'R'
-                    else: #RL
-                        mid = dots % 2
-                        half = dots // 2
-                        ans += 'R' * half + '.' * mid + 'L' * (half + 1)
-                    
-                    dots = 0
-                    left = domino
-        if dots > 0:
-            if left == 'L':
-                ans += '.' * dots
-            elif left == 'R':
-                ans += 'R' * dots
-            else:
-                ans += '.' * dots
+                    for j in range(last_left, i):
+                        dominoes[j] = 'L'
+                last_left = i
 
-        return ans
+        if last_right != -1:
+            for i in range(last_right + 1, n):
+                dominoes[i] = 'R'
+
+        return ''.join(dominoes)
