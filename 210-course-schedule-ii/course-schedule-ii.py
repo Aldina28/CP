@@ -6,7 +6,6 @@ class Solution:
             preMap[crs].append(pre)
         visited = []
         cycle = set()
-        output = []
         def dfs(crs):
             if crs in cycle:
                 return False
