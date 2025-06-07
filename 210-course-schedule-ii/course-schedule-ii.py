@@ -4,7 +4,7 @@ class Solution:
         preMap = {i:[] for i in range(numCourses)}
         for crs, pre in prerequisites:
             preMap[crs].append(pre)
-        visited = set()
+        visited = []
         cycle = set()
         output = []
         def dfs(crs):
@@ -17,10 +17,10 @@ class Solution:
                 if not dfs(pre):
                     return False
             cycle.remove(crs)
-            visited.add(crs)
-            output.append(crs)
+            visited.append(crs)
+            #output.append(crs)
             return True
         for crs in range(numCourses):
             if not dfs(crs):
                 return []
-        return output
+        return visited
