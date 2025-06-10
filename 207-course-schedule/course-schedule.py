@@ -5,7 +5,6 @@ class Solution:
         for crs, pre in prerequisites:
             preMap[crs].append(pre)
         visited = set()
-
         def dfs(crs):
             if preMap[crs] == []:
                 return True
@@ -22,4 +21,3 @@ class Solution:
             if not dfs(crs):
                 return False
         return True
-                            
