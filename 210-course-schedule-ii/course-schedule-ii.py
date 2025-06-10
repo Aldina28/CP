@@ -4,22 +4,23 @@ class Solution:
         preMap = {i:[] for i in range(numCourses)}
         for crs, pre in prerequisites:
             preMap[crs].append(pre)
-        visited = []
+        output = []
         cycle = set()
         def dfs(crs):
             if crs in cycle:
                 return False
-            if crs in visited:
+            if crs in output:
                 return True
             cycle.add(crs)
             for pre in preMap[crs]:
                 if not dfs(pre):
                     return False
+            output.append(crs)
             cycle.remove(crs)
-            visited.append(crs)
-            #output.append(crs)
             return True
         for crs in range(numCourses):
             if not dfs(crs):
                 return []
-        return visited
+        return output
+
+       
