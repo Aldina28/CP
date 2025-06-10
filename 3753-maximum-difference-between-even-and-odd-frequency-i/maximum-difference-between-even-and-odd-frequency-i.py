@@ -1,18 +1,11 @@
 class Solution:
     def maxDifference(self, s: str) -> int:
-        hashMap = {}
-        for i in s:
-            if i not in hashMap:
-                hashMap[s.count(i)] = i
-        odds = list()
-        even = list()
-        for val in hashMap.keys():
+        counts = Counter(s)
+        max_val = -float('inf')
+        min_val = float('inf')
+        for key, val in counts.items():
             if val%2 != 0:
-                odds.append(val)
+                max_val = max(max_val, val)
             else:
-                even.append(val)
-        max_odds=max(odds)
-        min_even = min(even)
-        return max_odds - min_even
-        
-            
+                min_val = min(min_val, val)
+        return max_val - min_val
