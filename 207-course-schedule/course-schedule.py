@@ -1,12 +1,12 @@
 __import__("atexit").register(lambda: open("display_runtime.txt", "w").write("0"))
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        preMap = {i:[] for i in range(numCourses)}
+        preMap = {i: [] for i in range(numCourses)}
         for crs, pre in prerequisites:
             preMap[crs].append(pre)
         visited = set()
         def dfs(crs):
-            if preMap[crs] == []:
+            if preMap[crs]==[]:
                 return True
             if crs in visited:
                 return False
@@ -17,6 +17,7 @@ class Solution:
             visited.remove(crs)
             preMap[crs] = []
             return True
+        
         for crs in range(numCourses):
             if not dfs(crs):
                 return False
