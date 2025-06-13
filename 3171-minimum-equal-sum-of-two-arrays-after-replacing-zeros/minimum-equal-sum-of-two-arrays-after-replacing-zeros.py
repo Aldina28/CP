@@ -1,10 +1,7 @@
-import atexit
-atexit.register(lambda: open("display_runtime.txt", "w").write("0"))
 class Solution:
     def minSum(self, nums1: List[int], nums2: List[int]) -> int:
-        sum1, zero1=sum(nums1), nums1.count(0)
-        sum2, zero2=sum(nums2), nums2.count(0)
-        if (zero1==0 and sum1<sum2+zero2) or (zero2==0 and sum2<sum1+zero1):
+        nums1_sum, nums1_zeroes = sum(nums1), nums1.count(0)
+        nums2_sum, nums2_zeroes = sum(nums2), nums2.count(0)
+        if (nums1_zeroes == 0 and nums1_sum<nums2_sum+nums2_zeroes) or (nums2_zeroes==0 and nums2_sum<nums1_sum+nums1_zeroes):
             return -1
-        return max(sum1+zero1, sum2+zero2)
-                 
+        return max(nums1_sum+nums1_zeroes, nums2_sum+nums2_zeroes)
