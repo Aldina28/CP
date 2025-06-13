@@ -1,27 +1,25 @@
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
         graph = defaultdict(list)
-        for (a, b), w in zip(equations, values):
-            graph[a].append([b, w])
-            graph[b].append([a, 1/w])
-
-        def dfs(src, dest, result, seen):
-            if src in seen:
+        for (u, v), w in zip(equations, values):
+            graph[u].append([v, w])
+            graph[v].append([u, 1/w])
+        
+        def bfs(start, target):
+            if start not in graph or target not in graph:
                 return -1
-            if src==dest:
-                return result
-            seen.add(src)
-            for neighbours, w in graph[src]:
-                temp = dfs(neighbours, dest, result*w, seen)
-                if temp != -1:
-                    return temp
+            queue = deque()
+            visit = set()
+            queue.append([start, 1])
+            visit.add(start)
+            while queue:
+                n, w = queue.popleft()
+                if n==target:
+                    return w
+                for neigh, weight in graph[n]:
+                    if neigh not in visit:
+                        queue.append([neigh, w*weight])
+                        visit.add(neigh)
             return -1
-        result = []
-        for x, y in queries:
-            if x not in graph or y not in graph:
-                result.append(-1.0)
-            else:
-                result.append(dfs(x, y, 1.0, set()))
-        return result        
-
-                 
+        
+        return [bfs(q[0], q[1]) for q in queries]
