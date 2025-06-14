@@ -9,16 +9,14 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-__import__("atexit").register(lambda: open("display_runtime.txt", "w").write("0"))
 class Solution:
     def sortedListToBST(self, head: Optional[ListNode]) -> Optional[TreeNode]:
         if not head:
-            return None
+            return 
         if not head.next:
             return TreeNode(head.val)
+        fast, slow = head, head
         prev = None
-        slow = head
-        fast = head
         while fast and fast.next:
             prev = slow
             slow = slow.next
@@ -28,4 +26,3 @@ class Solution:
         root.left = self.sortedListToBST(head)
         root.right = self.sortedListToBST(slow.next)
         return root
-        
