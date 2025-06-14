@@ -1,21 +1,18 @@
 class MyHashSet:
 
     def __init__(self):
-        self.hashSet = []
+        self.mp=[False]*1000001
+        
 
     def add(self, key: int) -> None:
-        if key not in self.hashSet:
-            self.hashSet.append(key)
+        self.mp[key]=True
+        
 
     def remove(self, key: int) -> None:
-        if key in self.hashSet:
-            self.hashSet.remove(key)
+        self.mp[key]=False
 
     def contains(self, key: int) -> bool:
-        if key in self.hashSet:
-            return  True
-        else:
-            return False
+        return self.mp[key]
 
 
 # Your MyHashSet object will be instantiated and called as such:
