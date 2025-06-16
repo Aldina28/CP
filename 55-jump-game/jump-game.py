@@ -4,7 +4,4 @@ class Solution:
         for i in range(len(nums)-1, -1, -1):
             if goal - i <= nums[i]:
                 goal = i
-        if goal == 0:
-            return True
-        else:
-            return False
+        return goal==0
