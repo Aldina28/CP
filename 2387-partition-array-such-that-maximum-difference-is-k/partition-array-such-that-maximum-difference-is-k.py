@@ -1,10 +1,13 @@
 class Solution:
     def partitionArray(self, nums: List[int], k: int) -> int:
-        nums.sort()
-        count = 1
-        min_val = nums[0]
+        nums = sorted(list(set(nums)))  # Remove duplicates and sort
+        ans = 1
+        mn = nums[0]
+
         for num in nums[1:]:
-            if num-min_val>k:
-                count+=1
-                min_val = num
-        return count          
+            if num - mn > k:
+                ans += 1
+                mn = num
+
+        return ans
+               
