@@ -1,19 +1,24 @@
 class Solution:
     def longestSubsequence(self, s: str, k: int) -> int:
-        n = len(s)
-        zeros = s.count('0')
-        ones = 0
-        value = 0
-        power = 1
+        count = 0  # number of characters in the valid subsequence
+        value = 0  # current value of the binary subsequence
+        power = 1  # current power of 2 (for binary digit weight)
 
-        for i in range(n - 1, -1, -1):
-            if s[i] == '1':
-                if value + power > k:
-                    continue
-                value += power
-                ones += 1
-            power <<= 1
-            if power > k:
+        # Traverse the string from right to left
+        for ch in reversed(s):
+            if ch == '0':
+                count += 1  # Always safe to include 0
+            else:
+                if power <= k and value + power <= k:
+                    value += power
+                    count += 1
+                # else, skip this '1' as it would exceed k
+
+            power <<= 1  # move to the next bit (multiply power by 2)
+            if power > k:  # Further bits would be too big
                 break
 
-        return zeros + ones
+        # Count all the '0's we skipped before and any '1's we could take
+        count += s[:len(s) - count].count('0')
+
+        return count
