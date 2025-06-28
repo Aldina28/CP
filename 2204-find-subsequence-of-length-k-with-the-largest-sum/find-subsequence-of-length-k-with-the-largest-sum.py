@@ -1,12 +1,12 @@
 class Solution:
     def maxSubsequence(self, nums: List[int], k: int) -> List[int]:
-        nums_with_indices = [(num, i) for i, num in enumerate(nums)]
+        indexed = [(num, i) for i, num in enumerate(nums)]
         
-        # Sort by value descending
-        nums_with_indices.sort(key=lambda x: -x[0])
+        # Step 2: Sort by value (descending) and take top k
+        top_k = sorted(indexed, key=lambda x: x[0], reverse=True)[:k]
         
-        # Take top k and sort by original index
-        top_k = sorted(nums_with_indices[:k], key=lambda x: x[1])
+        # Step 3: Sort selected k elements by original index
+        top_k.sort(key=lambda x: x[1])
         
-        # Extract values
+        # Step 4: Extract the numbers only
         return [num for num, _ in top_k]
