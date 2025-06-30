@@ -4,9 +4,6 @@ class Solution:
         if len(s)!=len(t):
             return False
         for i in s:
-            if i in t:
-                if s.count(i)!=t.count(i):
-                    return False
-            else:
+            if s.count(i)!=t.count(i):
                 return False
         return True
