@@ -1,9 +1,9 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        num_count = Counter(nums)
-        sorted_num = dict(sorted(num_count.items(), key=lambda item:item[1], reverse = True))
+        nums_count =  Counter(nums)
         result = []
-        for i in sorted_num.keys():
+        sorted_nums = dict(sorted(nums_count.items(), key=lambda items:items[1], reverse = True))
+        for i in sorted_nums.keys():
             result.append(i)
         return result[0:k]
         
