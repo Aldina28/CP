@@ -3,6 +3,6 @@ class Solution:
         s = s.replace(' ', '')
         res = ""
         for i in s:
-            if i.isalpha() or i.isnumeric():
+            if i.isalnum():
                res+=(i.lower()) 
         return res==res[::-1]
