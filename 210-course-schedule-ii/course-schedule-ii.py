@@ -1,25 +1,25 @@
 __import__("atexit").register(lambda: open("display_runtime.txt", "w").write("0"))
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        preMap = {i: [] for i in range(numCourses)}
+        preMap = {i:[] for i in range(numCourses)}
         for crs, pre in prerequisites:
             preMap[crs].append(pre)
-        cycle = set()
-        output = []
+        visited = set()
+        result = []
+
         def dfs(crs):
-            if crs in cycle:
+            if crs in visited:
                 return False
-            if crs in output:
+            if crs in result:
                 return True
-            cycle.add(crs)
+            visited.add(crs)
             for pre in preMap[crs]:
                 if not dfs(pre):
                     return False
-            cycle.remove(crs)
-            output.append(crs)
+            result.append(crs)
+            visited.remove(crs)
             return True
-
         for crs in range(numCourses):
             if not dfs(crs):
                 return []
-        return output
+        return result
