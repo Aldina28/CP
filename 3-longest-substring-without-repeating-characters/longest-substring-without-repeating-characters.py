@@ -1,5 +1,5 @@
+
 class Solution:
-    __import__("atexit").register(lambda: open("display_runtime.txt", "w").write("0"))
     def lengthOfLongestSubstring(self, s: str) -> int:
         result = set()
         l = r = 0
@@ -8,7 +8,7 @@ class Solution:
             if s[r] not in result:
                 result.add(s[r])
                 max_length = max(max_length, r-l+1)
-                r+=1     
+                r+=1
             else:
                 result.remove(s[l])
                 l+=1
