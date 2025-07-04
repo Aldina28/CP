@@ -1,14 +1,17 @@
 class Solution:
     def kthCharacter(self, k: int, operations: List[int]) -> str:
-        n, i = 1, 0
-        while n < k:
-            n *= 2
-            i += 1
-        d = 0
-        while n > 1:
-            if k > n // 2:
-                k -= n // 2
-                d += operations[i - 1]
-            n //= 2
-            i -= 1
-        return chr(d % 26 + ord("a"))
+        k -= 1
+        
+        bits = k.bit_length()
+        # num = k
+        # bits = 0
+        # while num:
+        #     num //= 2
+        #     bits += 1
+        
+        res = 0
+        for i in range(bits):
+            if (k >> i) & 1:
+                res += operations[i]
+        
+        return chr(ord('a') + (res % 26))
