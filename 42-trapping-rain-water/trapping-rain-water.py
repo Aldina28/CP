@@ -7,19 +7,15 @@ class Solution:
         area=0
         while l<r:
             if height[l]<height[r]:
-                if height[l]>=left_max:
+                if height[l]>left_max:
                     left_max = height[l]
                 else:
-                    area += left_max - height[l]
+                    area+=left_max-height[l]
                 l+=1
             else:
-                if height[r]>=right_max:
+                if height[r]>right_max:
                     right_max = height[r]
                 else:
-                    area+=right_max - height[r]
+                    area += right_max-height[r]
                 r-=1
         return area
-
-
-
-
