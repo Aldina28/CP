@@ -1,17 +1,6 @@
 class Solution:
-    def maxFreeTime(self, eventTime: int, k: int, startTime: List[int], endTime: List[int]) -> int:
-        count = len(startTime)
-        prefixSum = [0] * (count + 1)
-        maxFree = 0
-
-        for i in range(count):
-            prefixSum[i + 1] = prefixSum[i] + (endTime[i] - startTime[i])
-
-        for i in range(k - 1, count):
-            occupied = prefixSum[i + 1] - prefixSum[i - k + 1]
-            windowEnd = eventTime if i == count - 1 else startTime[i + 1]
-            windowStart = 0 if i == k - 1 else endTime[i - k]
-            freeTime = windowEnd - windowStart - occupied
-            maxFree = max(maxFree, freeTime)
-
-        return maxFree
+    def maxFreeTime(self, t: int, k: int, s: List[int], e: List[int]) -> int:
+        q = [*map(sub,s+[t],[0]+e)]
+        return max(accumulate(map(sub,q[k+1:],q),lambda p,w:p+w,initial=sum(q[:k+1])))
+        return max(accumulate(zip(q[k+1:],q),lambda p,w:p+w[0]-w[1],initial=sum(q[:k+1])))
+        return max(accumulate(range(k+1,len(q)),lambda p,i:p+q[i]-q[i-k-1],initial=sum(q[:k+1])))
