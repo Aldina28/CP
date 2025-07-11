@@ -8,7 +8,6 @@ class Solution:
                 return
             if i >= len(candidates) or curr_sum > target:
                 return
-
             temp.append(candidates[i])
             backtrack(i, curr_sum + candidates[i])
             temp.pop()
