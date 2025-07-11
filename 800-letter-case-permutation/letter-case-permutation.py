@@ -1,15 +1,16 @@
 class Solution:
     def letterCasePermutation(self, s: str) -> List[str]:
         res = []
-        def sub(i, s1):
+        def backtrack(i, temp):
             if i>=len(s):
-                res.append(s1)
+                res.append(temp)
                 return 
+            
             if s[i].isalpha():
-                sub(i+1, s1+s[i].lower())
-                sub(i+1, s1+s[i].upper())
+                backtrack(i+1, temp+s[i].upper())
+                backtrack(i+1, temp+s[i].lower())
             else:
-                sub(i+1, s1+s[i])
-        s1 = ''
-        sub(0, s1)
+                backtrack(i+1, temp+s[i])
+        temp = ''
+        backtrack(0, temp)
         return res
