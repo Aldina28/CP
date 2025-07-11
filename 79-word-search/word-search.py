@@ -1,27 +1,19 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        rows = len(board)
-        cols = len(board[0])
-        visited = set()
-        def dfs(r,c, i):
-            if r < 0 or c < 0 or r >= rows or c >= cols:
-                return False
-            if (r, c) in visited:
-                return False
-            if board[r][c] != word[i]:
-                return False
-            if i == len(word) - 1:
+        def backtrack(i, j, k):
+            if k==len(word):
                 return True
-            visited.add((r, c))
-            res = (dfs(r+1, c, i+1) or 
-               dfs(r-1, c, i+1) or 
-               dfs(r, c+1, i+1) or 
-               dfs(r, c-1, i+1))
-            visited.remove((r, c))
-            return res
-        for r in range(rows):
-            for c in range(cols):
-                if board[r][c] == word[0]:
-                    if dfs(r, c, 0):
-                        return True
-        return False    
+            if i<0 or j<0 or i>=len(board) or j>=len(board[0]) or board[i][j]!=word[k]:
+                return False
+            temp = board[i][j]
+            board[i][j] = ''
+            if backtrack(i+1, j, k+1) or backtrack(i-1, j, k+1) or backtrack(i, j+1, k+1) or backtrack(i, j-1, k+1):
+                return True
+            board[i][j]=temp
+            return False
+
+        for r in range(len(board)):
+            for c in range(len(board[0])):
+                if backtrack(r, c, 0):
+                    return True
+        return False
