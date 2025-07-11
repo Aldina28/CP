@@ -1,7 +1,7 @@
 class Solution:
     def letterCasePermutation(self, s: str) -> List[str]:
         res = []
-
+        
         def backtracking(i, sub):
             if i>=len(s):
                 res.append(''.join(sub))
