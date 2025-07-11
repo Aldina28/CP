@@ -2,26 +2,22 @@ class Solution:
     def letterCasePermutation(self, s: str) -> List[str]:
         res = []
 
-        def backtrack(i, path):
-            if i >= len(s):
-                res.append(''.join(path))
-                return
-
+        def backtracking(i, sub):
+            if i>=len(s):
+                res.append(''.join(sub))
+                return 
             if s[i].isalpha():
-                # Choose lowercase
-                path.append(s[i].lower())
-                backtrack(i + 1, path)
-                path.pop()  # undo
+                sub.append(s[i].upper())
+                backtracking(i+1, sub)
+                sub.pop()
 
-                # Choose uppercase
-                path.append(s[i].upper())
-                backtrack(i + 1, path)
-                path.pop()  # undo
-
+                sub.append(s[i].lower())
+                backtracking(i+1, sub)
+                sub.pop()
+                
             else:
-                path.append(s[i])
-                backtrack(i + 1, path)
-                path.pop()  # undo
-
-        backtrack(0, [])
+                sub.append(s[i])
+                backtracking(i+1, sub)
+                sub.pop()
+        backtracking(0, [])
         return res
