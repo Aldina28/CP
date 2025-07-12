@@ -2,23 +2,26 @@ __import__("atexit").register(lambda: open("display_runtime.txt", "w").write("0"
 class Solution:
     def letterCasePermutation(self, s: str) -> List[str]:
         res = []
-
-        def backtracking(i, sub):
-            if i>=len(s):
-                res.append(''.join(sub))
+        temp = []
+        def backtrack(i):
+            if len(temp)==len(s):
+                res.append(''.join(temp[:]))
                 return 
-            if s[i].isalpha():
-                sub.append(s[i].upper())
-                backtracking(i+1, sub)
-                sub.pop()
 
-                sub.append(s[i].lower())
-                backtracking(i+1, sub)
-                sub.pop()
-                
+            if s[i].isalpha():
+                temp.append(s[i].lower())
+                backtrack(i+1)
+                temp.pop()
+
+                temp.append(s[i].upper())
+                backtrack(i+1)
+                temp.pop()
+    
             else:
-                sub.append(s[i])
-                backtracking(i+1, sub)
-                sub.pop()
-        backtracking(0, [])
+                temp.append(s[i])
+                backtrack(i+1)
+                temp.pop()
+        backtrack(0)
         return res
+            
+            
