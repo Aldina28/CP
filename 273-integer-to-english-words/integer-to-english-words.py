@@ -3,34 +3,66 @@ class Solution:
         if num == 0:
             return "Zero"
         
-        bigString = ["Thousand", "Million", "Billion"]
-        result = self.numberToWordsHelper(num % 1000)
-        num //= 1000
-        
-        for i in range(len(bigString)):
-            if num > 0 and num % 1000 > 0:
-                result = self.numberToWordsHelper(num % 1000) + bigString[i] + " " + result
-            num //= 1000
-        
-        return result.strip()
+        ones = {
+            1:"One", 
+            2:"Two",
+            3: "Three",
+            4: "Four",
+            5: "Five",
+            6: "Six",
+            7: "Seven",
+            8: "Eight",
+            9: "Nine"
+        }
 
-    def numberToWordsHelper(self, num: int) -> str:
-        digitString = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"]
-        teenString = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
-        tenString = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
-        
-        result = ""
-        if num > 99:
-            result += digitString[num // 100] + " Hundred "
-        
-        num %= 100
-        if num < 20 and num > 9:
-            result += teenString[num - 10] + " "
-        else:
-            if num >= 20:
-                result += tenString[num // 10] + " "
-            num %= 10
-            if num > 0:
-                result += digitString[num] + " "
-        
-        return result
+        teens = {
+            10: "Ten",
+            11: "Eleven",
+            12: "Twelve",
+            13: "Thirteen",
+            14: "Fourteen",
+            15: "Fifteen",
+            16: "Sixteen",
+            17: "Seventeen",
+            18: "Eighteen",
+            19: "Nineteen"
+        }
+        tens = {
+            20: "Twenty",
+            30: "Thirty",
+            40: "Forty",
+            50: "Fifty",
+            60: "Sixty",
+            70: "Seventy",
+            80: "Eighty",
+            90: "Ninety"
+        }
+        endings = ["", " Thousand", " Million" , " Billion"]
+        def group(val):
+            #314, 304, 340, 300, 004
+            arr = []
+            hundreds = val // 100
+            if hundreds:
+                arr.append(ones[hundreds] + " Hundred")
+            last2 = val % 100
+            if last2:
+                if last2 < 10:
+                    arr.append(ones[last2])
+                elif last2 < 20:
+                    arr.append(teens[last2])
+                else:
+                    tens_part, ones_part = last2//10, last2%10
+                    arr.append(tens[10 * tens_part])
+                    if ones_part:
+                        arr.append(ones[ones_part])
+            return " ".join(arr)
+        i = 0
+        res = []
+        while num:
+            val = group(num % 1000)
+            if val:
+                res.append(val + endings[i])
+            i += 1
+            num //= 1000
+        res.reverse()
+        return " ".join(res)
